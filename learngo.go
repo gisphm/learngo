@@ -17,4 +17,5 @@ func main() {
 
 	fmt.Printf("max(%d, %d) = %d\n", x, y, max_xy)
 	fmt.Printf("max(%d, %d) = %d\n", x, z, max_xz)
+	fmt.Printf("max(%d, %d) = %d\n", y, z, max(y, z))
 }
