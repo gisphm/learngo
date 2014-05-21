@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
+
+type Skills []string
 
 type Human struct {
 	name   string
@@ -9,25 +13,27 @@ type Human struct {
 }
 
 type Student struct {
-	Human
+	Human      //匿名字段, struct
+	Skills     //匿名字段，自定义类型string slice
+	int        //内置类型作为匿名字段
 	speciality string
 }
 
 func main() {
-	mark := Student{Human{"Mark", 25, 120}, "Computer Science"}
+	jane := Student{
+		Human:      Human{"Jane", 35, 100},
+		speciality: "Biology"}
+	fmt.Println("Her name is ", jane.name)
+	fmt.Println("Her age is ", jane.age)
+	fmt.Println("Her weight is ", jane.weight)
+	fmt.Println("Her specialityis ", jane.speciality)
 
-	fmt.Println("His name is ", mark.name)
-	fmt.Println("His age is ", mark.age)
-	fmt.Println("His weight is ", mark.weight)
-	fmt.Println("His speciality is ", mark.speciality)
+	jane.Skills = []string{"anatomy"}
+	fmt.Println("Her skills are ", jane.Skills)
+	fmt.Println("She acquired two new ones ")
+	jane.Skills = append(jane.Skills, "physics", "golang")
+	fmt.Println("Her skills now are ", jane.Skills)
 
-	mark.speciality = "AI"
-	fmt.Println("Mark change his speciality")
-	fmt.Println("His speciality is ", mark.speciality)
-	fmt.Println("Mark become old")
-	mark.age = 46
-	fmt.Println("His age is ", mark.age)
-	fmt.Println("Mark is not an athlet anymore")
-	mark.weight += 60
-	fmt.Println("His weight is ", mark.weight)
+	jane.int = 3
+	fmt.Println("Her preferred number is ", jane.int)
 }
