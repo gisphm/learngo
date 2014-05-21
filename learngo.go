@@ -2,14 +2,13 @@ package main
 
 import "fmt"
 
-func SumAndMultiply(A, B int) (int, int) {
-	return A + B, A * B
+func myfunc(arg ...int) {
+	for _, n := range arg {
+		fmt.Printf("And the number is: %d\n", n)
+	}
 }
 
 func main() {
-	x, y := 3, 4
-	xPLUSy, xTIMESy := SumAndMultiply(x, y)
-
-	fmt.Printf("%d + %d = %d\n", x, y, xPLUSy)
-	fmt.Printf("%d * %d = %d\n", x, y, xTIMESy)
+	x, y, z := 3, 4, 5
+	myfunc(x, y, z, x+y, x*y, x+z)
 }
