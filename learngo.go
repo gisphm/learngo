@@ -1,34 +1,65 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
 
-type Rectangle struct {
-	width, height float64
+type Human struct {
+	name  string
+	age   int
+	phone string
 }
 
-type Circle struct {
-	radius float64
+type Student struct {
+	Human
+	school string
+	loan   float32
 }
 
-func (r Rectangle) area() float64 {
-	return r.width * r.height
+type Employee struct {
+	Human
+	company string
+	money   float32
 }
 
-func (c Circle) area() float64 {
-	return c.radius * c.radius * math.Pi
+func (h Human) SayHi() {
+	fmt.Printf("Hi, I am %s you can call me on %s\n", h.name, h.phone)
+}
+
+func (h Human) Sing(lyrics string) {
+	fmt.Println("La la la la ...", lyrics)
+}
+
+func (e Employee) SayHi() {
+	fmt.Printf("Hi, I am %s, I work at %s. Call me on %s\n", e.name, e.company, e.phone)
+}
+
+type Men interface {
+	SayHi()
+	Sing(lyrics string)
 }
 
 func main() {
-	r1 := Rectangle{12, 2}
-	r2 := Rectangle{9, 4}
-	c1 := Circle{10}
-	c2 := Circle{25}
+	mike := Student{Human{"Mike", 25, "222-222-XXX"}, "MIT", 0.00}
+	paul := Student{Human{"Paul", 26, "111-222-XXX"}, "Harvard", 100}
+	sam := Employee{Human{"Sam", 36, "444-222-XXX"}, "Golang Inc.", 1000}
+	tom := Employee{Human{"Tom", 37, "222-444-XXX"}, "Things ltd.", 5000}
 
-	fmt.Println("Area of r1 is: ", r1.area())
-	fmt.Println("Area of r2 is: ", r2.area())
-	fmt.Println("Area of c1 is: ", c1.area())
-	fmt.Println("Area of c2 is: ", c2.area())
+	var i Men
+
+	i = mike
+	fmt.Println("This is Mike, a Student:")
+	i.SayHi()
+	i.Sing("November rain")
+
+	i = tom
+	fmt.Println("This is Tom, an Employee:")
+	i.SayHi()
+	i.Sing("Born to be world")
+
+	fmt.Println("Let's use a slice of Men and see what happens")
+	x := make([]Men, 3)
+	x[0], x[1], x[2] = paul, sam, mike
+
+	for _, value := range x {
+		value.SayHi()
+	}
 }
