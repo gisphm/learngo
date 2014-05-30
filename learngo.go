@@ -2,33 +2,36 @@ package main
 
 import (
 	"fmt"
-	"math"
+	"strconv"
 )
 
-type Rectangle struct {
-	width, height float64
+type Element interface{}
+type List []Element
+
+type Person struct {
+	name string
+	age  int
 }
 
-type Circle struct {
-	radius float64
-}
-
-func (r Rectangle) area() float64 {
-	return r.width * r.height
-}
-
-func (c Circle) area() float64 {
-	return c.radius * c.radius * math.Pi
+func (p Person) String() string {
+	return "(name: " + p.name + " - age: " + strconv.Itoa(p.age) + " years)"
 }
 
 func main() {
-	r1 := Rectangle{12, 2}
-	r2 := Rectangle{9, 4}
-	c1 := Circle{10}
-	c2 := Circle{25}
+	list := make(List, 3)
+	list[0] = 1
+	list[1] = "Hello"
+	list[2] = Person{"Dennis", 70}
 
-	fmt.Println("Area of r1 is: ", r1.area())
-	fmt.Println("Area of r2 is: ", r2.area())
-	fmt.Println("Area of c1 is: ", c1.area())
-	fmt.Println("Area of c2 is: ", c2.area())
+	for index, element := range list {
+		if value, ok := element.(int); ok {
+			fmt.Printf("list[%d] is an integer and its value is %d\n", index, value)
+		} else if value, ok := element.(string); ok {
+			fmt.Printf("list[%d] is a string and its value is %s\n", index, value)
+		} else if value, ok := element.(Person); ok {
+			fmt.Printf("list[%d] is a Person and its value is %s\n", index, value)
+		} else {
+			fmt.Println("list[%d] is of a different type", index)
+		}
+	}
 }
