@@ -5,7 +5,6 @@ import (
 	"strconv"
 )
 
-<<<<<<< HEAD
 type Element interface{}
 type List []Element
 
@@ -36,19 +35,4 @@ func main() {
 			fmt.Println("list[%d] is of a different type", index)
 		}
 	}
-=======
-type Human struct {
-	name  string
-	age   int
-	phone string
-}
-
-func (h Human) String() string {
-	return "<" + h.name + " - " + strconv.Itoa(h.age) + " years - ✆  " + h.phone + ">"
-}
-
-func main() {
-	Bob := Human{"Bob", 39, "000-777-XXX"}
-	fmt.Println("This Human is: ", Bob)
->>>>>>> 37e308e90d41dd863ce28b89c0a60cc17e8872c7
 }
